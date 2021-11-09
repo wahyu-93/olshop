@@ -9,18 +9,19 @@ trait hasPermissionsTrait
 {
     public function hasPermissionsTo($permissions)
     {
-        // permission user
-        // foreach($permissions as $permission){
-        //     if($this->permissions->contains('nama', $permission)){
-        //         return true;
-        //     }
-        // };
+        //permissions role || permission user
+        return $this->hasPermissionThroughRole($permissions) || $this->hasPermission($permissions);
+    }
 
-        // return false;
-        return $this->hasPermission($permissions);
+    protected function hasPermissionThroughRole($permissions)
+    {
+        foreach($permissions->roles as $role){
+            if($this->roles->contains($role)){
+                return true;
+            }
+        }
 
-        // permission role
-        
+        return false;
     }
 
     protected function hasPermission($permissions)
