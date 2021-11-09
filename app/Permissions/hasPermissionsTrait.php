@@ -9,7 +9,13 @@ trait hasPermissionsTrait
 {
     public function hasRole(...$roles)
     {
-        dd($roles);
+        foreach($roles as $role){
+            if($this->roles->contains('nama', $role)){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function roles()
