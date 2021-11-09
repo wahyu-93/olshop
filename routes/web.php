@@ -16,7 +16,8 @@ use Illuminate\Http\Request;
 Route::get('/', function (Request $request) {
     // return view('admin.index');
     $user = $request->user();
-    dd($user->hasRole('admin'));
+    // dd($user->hasRole('admin'));
+    dd($user->can('add_product','delete_product'));
 
 });
 

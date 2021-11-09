@@ -7,6 +7,27 @@ use App\Models\Role;
 
 trait hasPermissionsTrait
 {
+    public function hasPermissionsTo($permissions)
+    {
+        // permission user
+        // foreach($permissions as $permission){
+        //     if($this->permissions->contains('nama', $permission)){
+        //         return true;
+        //     }
+        // };
+
+        // return false;
+        return $this->hasPermission($permissions);
+
+        // permission role
+        
+    }
+
+    protected function hasPermission($permissions)
+    {
+        return (bool) $this->permissions->where('nama', $permissions->nama)->count();
+    }
+
     public function hasRole(...$roles)
     {
         foreach($roles as $role){
