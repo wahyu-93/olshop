@@ -15,10 +15,11 @@ use Illuminate\Http\Request;
 
 Route::get('/', function (Request $request) {
     // return view('admin.index');
-    $user = $request->user();
+    // $user = $request->user();
     // dd($user->hasRole('admin'));
     // dd($user->can('edit-product'));
-    $user->updatePermissions('add-product');
+    // $user->updatePermissions('add-product');
+    return view('welcome');
 
 });
 

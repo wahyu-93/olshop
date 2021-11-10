@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Permission;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class PermissionsServiceProvider extends ServiceProvider
@@ -29,6 +30,10 @@ class PermissionsServiceProvider extends ServiceProvider
             Gate::define($permissions->nama, function($user) use ($permissions){
                 return $user->hasPermissionsTo($permissions);
             });
+        });
+
+        Blade::if('role', function($role){
+            return auth()->user()->hasRole($role);
         });
     }
 }
