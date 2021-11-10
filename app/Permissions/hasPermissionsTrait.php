@@ -7,12 +7,6 @@ use App\Models\Role;
 
 trait hasPermissionsTrait
 {
-    public function hasPermissionsTo($permissions)
-    {
-        //permissions role || permission user
-        return $this->hasPermissionThroughRole($permissions) || $this->hasPermission($permissions);
-    }
-
     protected function hasPermissionThroughRole($permissions)
     {
         foreach($permissions->roles as $role){
@@ -28,6 +22,49 @@ trait hasPermissionsTrait
     {
         return (bool) $this->permissions->where('nama', $permissions->nama)->count();
     }
+
+    protected function getAllPermissions(array $permissions)
+    {
+        return Permission::whereIn('nama', $permissions)->get();
+    }
+    
+    public function givePermissions(...$permissions)
+    {
+        $permissions = $this->getAllPermissions(array_flatten($permissions));
+        
+        if ($permissions==null){
+            return $this;
+        }
+        
+        $this->permissions()->saveMany($permissions);
+        return $this;
+    }
+
+    public function updatePermissions(...$permissions)
+    {
+        $this->permissions()->detach();
+        $this->givePermissions($permissions);
+        return $this;
+    }
+
+    public function revokePermissions(...$permissions)
+    {
+        $permissions = $this->getAllPermissions(array_flatten($permissions));
+        
+        if($permissions==null){
+            return $this;
+        }
+
+        $this->permissions()->detach($permissions); 
+        return $this;
+    }
+
+    public function hasPermissionsTo($permissions)
+    {
+        //permissions role || permission user
+        return $this->hasPermissionThroughRole($permissions) || $this->hasPermission($permissions);
+    }
+
 
     public function hasRole(...$roles)
     {

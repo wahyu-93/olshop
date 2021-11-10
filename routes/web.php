@@ -17,7 +17,8 @@ Route::get('/', function (Request $request) {
     // return view('admin.index');
     $user = $request->user();
     // dd($user->hasRole('admin'));
-    dd($user->can('edit-product'));
+    // dd($user->can('edit-product'));
+    $user->updatePermissions('add-product');
 
 });
 
