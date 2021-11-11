@@ -28,6 +28,11 @@ trait hasPermissionsTrait
         return Permission::whereIn('nama', $permissions)->get();
     }
     
+    protected function getAllRoles(array $roles)
+    {
+        return Role::whereIn('nama', $roles)->get();
+    }
+
     public function givePermissions(...$permissions)
     {
         $permissions = $this->getAllPermissions(array_flatten($permissions));
@@ -56,6 +61,37 @@ trait hasPermissionsTrait
         }
 
         $this->permissions()->detach($permissions); 
+        return $this;
+    }
+
+    public function assignRoles(...$roles)
+    {
+        $roles = $this->getAllRoles(array_flatten($roles));
+
+        if($roles==null){
+            return $this;
+        }
+
+        $this->roles()->saveMany($roles);
+        return $this;
+    }
+
+    public function removeRoles(...$roles)
+    {
+        $roles = $this->getAllRoles(array_flatten($roles));
+
+        if($roles==null){
+            return $this;
+        }
+
+        $this->roles()->detach($roles);
+        return $this;
+    }
+
+    public function syncRoles(...$roles)
+    {
+        $this->roles()->detach();
+        $this->assignRoles($roles);
         return $this;
     }
 

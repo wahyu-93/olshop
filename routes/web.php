@@ -13,16 +13,14 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/', function (Request $request) {
-    // return view('admin.index');
-    // $user = $request->user();
-    // dd($user->hasRole('admin'));
-    // dd($user->can('edit-product'));
-    // $user->updatePermissions('add-product');
+Route::get('/', function (Request $request) { 
     return view('welcome');
-
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin/login', function(){
+    return view('admin.login');
+});
