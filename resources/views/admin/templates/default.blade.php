@@ -11,7 +11,7 @@
   @include('admin.templates._sidebar')
 
   <div class="content-wrapper">
-    @include('admin.templates._broadcrumb')
+    {{-- @include('admin.templates._broadcrumb') --}}
 
     <section class="content">
       <div class="container-fluid">
