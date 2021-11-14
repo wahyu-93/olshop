@@ -51,13 +51,18 @@ class ProductController extends Controller
             'description.requried' => 'Descripton Diisi',
             'category.required' => 'Category Diisi'
         ]);
-
-        Product::create([
+        
+        $product = Product::create([
             'name'  => $request->name,
             'slug'  => str_slug($request->name),
             'price' => $request->price,
             'description' => $request->description
         ]);
+        
+        $category = Category::find($request->category);
+
+        // saveManty atau attach untuk menyimpan many to many
+        $product->categories()->attach($category);
 
         return redirect()->route('product.index')->with('alerts', [
             'type'      => 'success',
@@ -82,9 +87,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories = Category::get();
+        return view('admin.product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -94,9 +100,37 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $this->validate($request,[
+            'name'  => 'required',
+            'price' => 'required|numeric',
+            'description'   => 'required',
+            'category'      => 'required'
+        ],[
+            'name.required'     => 'Nama Product Diisi',
+            'price.required'    => 'Price Product Diisi',
+            'price.numeric'     => 'Isian Hanya Boleh Angka',
+            'description.requried' => 'Descripton Diisi',
+            'category.required' => 'Category Diisi'
+        ]);
+        
+        $product->update([
+            'name'  => $request->name,
+            'slug'  => str_slug($request->name),
+            'price' => $request->price,
+            'description' => $request->description
+        ]);
+        
+        $category = Category::find($request->category);
+
+        // sync update many to many
+        $product->categories()->sync($category);
+
+        return redirect()->route('product.index')->with('alerts', [
+            'type'      => 'success',
+            'message'   => 'Data Product Berhasil Diubah'
+        ]);
     }
 
     /**
@@ -105,8 +139,13 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->categories()->detach();
+        $product->delete();
+        return back()->with('alerts', [
+            'type'      => 'warning',
+            'message'   => 'Data Berhasil Dihapus'
+        ]);
     }
 }
