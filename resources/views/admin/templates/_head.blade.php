@@ -4,6 +4,8 @@
     <title>Olshop | Dashboard</title>
 
     <!-- Google Font: Source Sans Pro -->
+    @stack('styles')
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('admin/plugins/fontawesome-free/css/all.min.css') }}">
@@ -24,5 +26,4 @@
     <!-- summernote -->                                       
     <link rel="stylesheet" href="{{ asset('admin/plugins/summernote/summernote-bs4.min.css') }}">           
     
-    @stack('styleCss')
 </head>

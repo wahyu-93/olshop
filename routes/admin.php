@@ -5,3 +5,4 @@ Route::get('/home', function(){
 })->name('admin.index');
 
 Route::resource('/category', 'CategoryController');
+Route::resource('/product', 'ProductController');

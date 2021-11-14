@@ -8,7 +8,7 @@
                     <h3 class="card-title">Edit Category</h3>
                 </div>
 
-                <form action="{{ route('category.update', $category) }}" method="POST">
+                <form action="{{ route('category.update', ['id' => $category->id]) }}" method="POST">
                 @csrf
                 @method('put')
                     <div class="card-body">

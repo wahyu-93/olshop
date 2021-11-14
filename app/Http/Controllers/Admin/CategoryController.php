@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
+        $categories = Category::paginate(5);
         return view('admin.category.index', compact('categories'));
     }
 
@@ -75,10 +75,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::find($id);
-
         return view('admin.category.edit', compact('category'));
     }
 
@@ -89,7 +87,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $this->validate($request,[
             'nama'          => 'required',
@@ -99,14 +97,16 @@ class CategoryController extends Controller
             'description.required' => 'Description Category Harus Diisi'
         ]);
 
-        $category = Category::find($id);
         $category->update([
             'name'  => $request->nama, 
             'slug'  => str_slug($request->nama),
             'description'   => $request->description
         ]);
 
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('alerts',[
+            'type'    => 'info',
+            'message' => 'Category Berhasil Diupdate'
+        ]);
     }
 
     /**
@@ -115,11 +115,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        $category = Category::find($id);
         $category->delete();
-
         return back();
     }
 }

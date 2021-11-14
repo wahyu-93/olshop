@@ -5,8 +5,8 @@
             @include('admin.templates._alert')
             <div class="card card-primary card-outline mt-3">
                 <div class="card-header">
-                    <h3 class="card-title">List Category</h3>
-                    <a href="{{ route('category.create') }}" class="btn btn-primary btn-sm float-right" title="Tambah Data">
+                    <h3 class="card-title">List Product</h3>
+                    <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm float-right" title="Tambah Data">
                         <i class="fa fa-plus"></i>
                     </a>
                 </div>
@@ -17,18 +17,19 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>Slug</th>
+                            <th>Price</th>
                             <th>Descripton</th>
                             <th>Aksi</th>
                         </tr>
 
-                        @foreach ($categories as $key => $category)
+                        @foreach ($products as $key => $product)
                         <tr>
-                            <td width="15px">{{ $categories->firstItem() +  $key }}</td>
-                            <td>{{ $category->name }}</td>
-                            <td>{{ $category->slug }}</td>
-                            <td>{{ $category->description }}</td>
+                            <td width="15px">{{ $products->firstItem() +  $key }}</td>
+                            <td>{{ $product->name }}</td>
+                            <td>{{ $product->slug }}</td>
+                            <td>{{ $product->description }}</td>
                             <td>
-                                <a href="{{ route('category.edit', $category) }}" class="btn btn-warning btn-sm" title="Edit Data">
+                                <a href="{{ route('product.edit', ['id' => $product->id]) }}" class="btn btn-warning btn-sm" title="Edit Data">
                                     <i class="fa fa-edit"></i>
                                 </a>
 
@@ -36,12 +37,11 @@
                                     class="btn btn-danger btn-sm" 
                                     title="Hapus Data" 
                                     id="delete"
-                                    href="{{ route('category.destroy', $category) }}"
-                                    data-title="{{ $category->name }}">
+                                    data-title="{{ $product->name }}">
                                         <i class="fa fa-trash"></i>
                                 </button>
 
-                                <form method="post" action="" id="hapusForm">
+                                <form method="post" action="{{ route('product.destroy', $product) }}" id="hapusForm">
                                     @csrf
                                     @method('delete')
                                     <input type="submit" style="display: none">
@@ -52,7 +52,7 @@
                         @endforeach
                     </table>
                     <div class="pagenation mt-3 d-flex justify-content-center">
-                        {{ $categories->render() }}
+                        {{ $products->render() }}
                     </div>
                 </div>
             </div>
@@ -65,20 +65,18 @@
     <script>
         $('button#delete').on('click',function(){
             let title = $(this).data('title')
-            let link = $(this).attr('href')
             
             swal({
                 title: "Apakah Anda Yakin ?",
-                text: "Ingin Menghapus Category '" + title +"'",
+                text: "Ingin Menghapus Product '" + title +"'",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
                 })
                 .then((willDelete) => {
                 if (willDelete) {
-                    document.getElementById('hapusForm').action = link
                     document.getElementById('hapusForm').submit();
-                    swal("Category Berhasil dihapus", {
+                    swal("Product Berhasil dihapus", {
                         icon: "success",
                     });
                 };
