@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -74,9 +75,6 @@ class ProductController extends Controller
         // saveManty atau attach untuk menyimpan many to many
         $product->categories()->attach($category);
 
-
-
-
         return redirect()->route('product.index')->with('alerts', [
             'type'      => 'success',
             'message'   => 'Data Product Berhasil Disimpan'
@@ -128,11 +126,19 @@ class ProductController extends Controller
             'category.required' => 'Category Diisi'
         ]);
         
+        // update image dan hapus image yg dulu
+        $image = $request->file('image') ?? null;
+        if($request->has('image')){
+            Storage::delete($product->image);
+            $image = $request->file('image')->store('product');
+        };
+        
         $product->update([
             'name'  => $request->name,
             'slug'  => str_slug($request->name),
             'price' => $request->price,
-            'description' => $request->description
+            'description' => $request->description,
+            'image'       => $image
         ]);
         
         $category = Category::find($request->category);
@@ -154,6 +160,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        Storage::delete($product->image);
         $product->categories()->detach();
         $product->delete();
         return back()->with('alerts', [

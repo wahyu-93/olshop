@@ -13,7 +13,7 @@
                     <h3 class="card-title">Edit Product</h3>
                 </div>
 
-                <form action="{{ route('product.update', $product) }}" method="POST">
+                <form action="{{ route('product.update', $product) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                     <div class="card-body">
@@ -43,6 +43,17 @@
                             @if($errors->has('price'))
                                 <span class="error invalid-feedback">
                                     {{ $errors->first('price') }}
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" name="image" id="image" class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" autofocus value="{{ old('image') }}">
+                            <img src="{{ asset($product->getImage()) }}" alt="Foto Belum Ada" width="250" height="250" class="img-thumbnail mt-2">
+                            @if($errors->has('image'))
+                                <span class="error invalid-feedback">
+                                    {{ $errors->first('image') }}
                                 </span>
                             @endif
                         </div>
