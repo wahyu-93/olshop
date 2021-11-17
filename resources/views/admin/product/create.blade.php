@@ -13,7 +13,7 @@
                     <h3 class="card-title">Tambah Product</h3>
                 </div>
 
-                <form action="{{ route('product.store') }}" method="POST">
+                <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -37,11 +37,21 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="nama">Price</label>
+                            <label for="price">Price</label>
                             <input type="text" name="price" id="price" class="form-control {{ $errors->has('price') ? 'is-invalid' : '' }}" autofocus value="{{ old('price') }}">
                             @if($errors->has('price'))
                                 <span class="error invalid-feedback">
                                     {{ $errors->first('price') }}
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" name="image" id="image" class="form-control {{ $errors->has('image') ? 'is-invalid' : '' }}" autofocus value="{{ old('image') }}">
+                            @if($errors->has('image'))
+                                <span class="error invalid-feedback">
+                                    {{ $errors->first('image') }}
                                 </span>
                             @endif
                         </div>

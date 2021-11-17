@@ -17,6 +17,11 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(10);
+        
+        // solve m+1
+        // eager loading modelClass->load(modelRelasi)
+        $products->load('categories');
+
         return view('admin.product.index', compact('products'));
     }
 
@@ -43,26 +48,34 @@ class ProductController extends Controller
             'name'  => 'required',
             'price' => 'required|numeric',
             'description'   => 'required',
-            'category'      => 'required'
+            'category'      => 'required',
+            'image'         => 'required'
         ],[
             'name.required'     => 'Nama Product Diisi',
             'price.required'    => 'Price Product Diisi',
             'price.numeric'     => 'Isian Hanya Boleh Angka',
             'description.requried' => 'Descripton Diisi',
-            'category.required' => 'Category Diisi'
+            'category.required' => 'Category Diisi',
+            'image.required'    => 'Image Belum Dimasukkan'
         ]);
-        
+    
+        $image = $request->file('image')->store('product');
+    
         $product = Product::create([
             'name'  => $request->name,
             'slug'  => str_slug($request->name),
             'price' => $request->price,
-            'description' => $request->description
+            'description' => $request->description,
+            'image'       => $image
         ]);
         
         $category = Category::find($request->category);
 
         // saveManty atau attach untuk menyimpan many to many
         $product->categories()->attach($category);
+
+
+
 
         return redirect()->route('product.index')->with('alerts', [
             'type'      => 'success',

@@ -16,6 +16,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
+                            <th>Image</th>
                             <th>Slug</th>
                             <th>Price</th>
                             <th>Category</th>
@@ -27,6 +28,12 @@
                         <tr>
                             <td width="15px">{{ $products->firstItem() +  $key }}</td>
                             <td>{{ $product->name }}</td>
+                            <td align="center">
+                                <img 
+                                    src="{{ asset($product->getImage()) }}" 
+                                    alt="Belum Ada Foto" width="150px" height="150px"
+                                    class="rounded">
+                            </td>
                             <td>{{ $product->slug }}</td>
                             <td>{{ number_format($product->price) }}</td>
                             <td>
