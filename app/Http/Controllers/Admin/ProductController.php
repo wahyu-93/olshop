@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::paginate(config('olshop.pagination'));
         
         // solve m+1
         // eager loading modelClass->load(modelRelasi)

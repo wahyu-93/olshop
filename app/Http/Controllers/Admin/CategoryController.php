@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(5);
+        $categories = Category::paginate(config('olshop.pagination'));
         return view('admin.category.index', compact('categories'));
     }
 
