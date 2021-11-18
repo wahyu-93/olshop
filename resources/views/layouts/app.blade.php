@@ -70,13 +70,12 @@
                     @endauth
                 </div>    
             </div>
-
-
         </nav>
-        
-        <main class="py-4">
+
+        <section class="section">
             @yield('content')
-        </main>
+        </section>
+    
     </div>
 
     <script>
