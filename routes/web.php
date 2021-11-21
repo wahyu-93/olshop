@@ -13,9 +13,8 @@
 
 use Illuminate\Http\Request;
 
-Route::get('/', function (Request $request) { 
-    return view('welcome');
-});
+Route::get('/', 'FrontController\\HomeController@homepage')->name('homepage');
+Route::get('/product/{product}', 'FrontController\\ProductController@show')->name('front.product.show');
 
 Auth::routes();
 

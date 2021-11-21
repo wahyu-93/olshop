@@ -15,7 +15,12 @@ class Product extends Model
 
     public function getImage()
     {
-        return 'images/'.$this->image;
+        return asset('images/'.$this->image);
+    }
+
+    public function getPrice()
+    {
+        return 'Rp. '.number_format($this->price,0,',','.');
     }
 
     public function categories()
