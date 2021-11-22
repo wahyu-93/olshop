@@ -24,7 +24,7 @@
         <nav class="navbar is-info" role="navigation">
             <div class="navbar-brand">
                 <div class="navbar-item">
-                    Olshop
+                    <a href="/" style="color: white" class="is-size-4">Olshop</a>
                 </div>
 
                 <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
