@@ -12,9 +12,7 @@ class HomeController extends Controller
     public function homepage()
     {
         $products = Product::paginate(config('olshop.front_pagination'));
-        $categories = Category::get();
-        $categories->load('products');
-
-        return view('homepage', compact('products', 'categories'));
+       
+        return view('homepage', compact('products'));
     }
 }
