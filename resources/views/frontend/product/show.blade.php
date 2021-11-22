@@ -10,10 +10,15 @@
                     </p>
                     
                     @foreach ($categories as $category)
-                        <a class="panel-block is-active" href="">
-                            {{ $category->name }}
-
-                        </a>
+                        <div class="panel-block is-justify-content-space-between">
+                            <p class="is-pulled-left">
+                                <a href="{{ route('front.product.by.category', $category) }}">
+                                    {{ $category->name }}
+                                </a>
+                            </p>   
+                            
+                            <p class="is-pulled-right tag is-info">{{ $category->products->count() }}</p>
+                        </div>
                     @endforeach
                 </article>      
             </aside>
@@ -28,7 +33,7 @@
                 </div>
 
                 <div class="column is-8">
-                    <p class="is-size-4">{{ $product->description }}</p>
+                    <p class="is-size-5 mb-3">{{ $product->description }}</p>
                     <p class="has-text-danger">{{ $product->getPrice() }}</p>
 
                     <a href="" class="button is-link is-rounded mt-5">Add to Cart</a>

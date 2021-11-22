@@ -44,7 +44,7 @@
                                @endforeach
                             </td>
                             <td>{{ $product->description }}</td>
-                            <td>
+                            <td width="100px">
                                 <a href="{{ route('product.edit', $product) }}" class="btn btn-warning btn-sm" title="Edit Data">
                                     <i class="fa fa-edit"></i>
                                 </a>

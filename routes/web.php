@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::get('/', 'FrontController\\HomeController@homepage')->name('homepage');
 Route::get('/product/{product}', 'FrontController\\ProductController@show')->name('front.product.show');
+Route::get('/product/category/{category}', 'FrontController\\ProductController@byCategory')->name('front.product.by.category');
 
 Auth::routes();
 

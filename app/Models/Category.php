@@ -10,7 +10,7 @@ class Category extends Model
 
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'slug';
     }
 
     public function products()
