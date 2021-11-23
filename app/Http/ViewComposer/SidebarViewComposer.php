@@ -17,6 +17,7 @@ class SidebarViewComposer
     public function compose(View $view)
     {
         $categories = $this->categories->get();
+        $categories->load('products');
         $view->with('categories', $categories);
     }
 }

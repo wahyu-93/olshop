@@ -1,5 +1,23 @@
 @extends('layouts.app')
 
+@push('styles')
+    <style>
+        .card {
+             height: 100%; 
+             display: flex; 
+             flex-direction: column;
+        } 
+
+        .card-content {
+            margin-bottom: auto
+        }
+
+        .card-footer {
+            margin-top: auto
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="columns">
         <div class="column is-2">
@@ -23,10 +41,13 @@
                                             {{ $product->name }}
                                         </a>
                                     </p>
-                                    <p class="has-text-danger">Rp. {{ $product->getPrice() }}</p>
-                                    <a href="#" class="button is-rounded is-link is-small mt-3">Add to Cart</a>
+                                    <p class="has-text-danger">{{ $product->getPrice() }}</p>
                                 </div>
                             </div>
+
+                            <footer class="card-footer">
+                                <a href="" class="card-footer-item button is-link is-small">Add to Cart</a>
+                            </footer>
                         </div>
                     </div>
                 @endforeach    
