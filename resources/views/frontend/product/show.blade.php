@@ -7,7 +7,7 @@
         </div>
 
         <div class="column is-10">
-            <a href="/" class="button is-danger is-rounded">Kembali</a>
+            <a href="/" class="button is-danger is-rounded is-small">Kembali</a>
             <p class="is-size-2 mb-3">{{ $product->name }}</p>
             <div class="columns">
                 <div class="column is-4">
@@ -18,7 +18,7 @@
                     <p class="is-size-6 mb-3">{{ $product->description }}</p>
                     <p class="has-text-danger">{{ $product->getPrice() }}</p>
 
-                    <a href="" class="button is-link is-rounded mt-5">Add to Cart</a>
+                    <a href="" class="button is-link is-rounded mt-5 is-small">Add to Cart</a>
                 </div>
             </div>
             

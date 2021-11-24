@@ -46,7 +46,7 @@
                             </div>
 
                             <footer class="card-footer">
-                                <a href="" class="card-footer-item button is-link is-small">Add to Cart</a>
+                                <a href="{{ route('cart.add.item', $product) }}" class="card-footer-item button is-link is-small">Add to Cart</a>
                             </footer>
                         </div>
                     </div>
