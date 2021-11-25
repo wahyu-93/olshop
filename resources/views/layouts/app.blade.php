@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+   
 
     @stack('styles')
 </head>
@@ -48,6 +49,16 @@
                     @endguest
                     
                     @auth
+                        <div class="navbar-item">
+                            <a href="{{ route('cart.index') }}" style="color: white">
+                                @if (session('cart'))
+                                    Cart ( {{ count(session('cart')) }} )
+                                @else
+                                    Cart ( 0 )
+                                @endif
+                            </a>    
+                        </div>
+
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link">
                                 {{ auth()->user()->name }}
