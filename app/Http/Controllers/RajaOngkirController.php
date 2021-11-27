@@ -26,12 +26,12 @@ class RajaOngkirController extends Controller
         return $rajaOngkir['rajaongkir']['results'];
     }
 
-    public function getCity($provinceId = null, $cityId = null)
+    public function getCity(Request $request)
     {
         $client = new Client;
         $req = $client->request(
                 "GET", 
-                "https://api.rajaongkir.com/starter/city?province={$provinceId}&id={$cityId}", 
+                "https://api.rajaongkir.com/starter/city?province={$request->province}", 
                 [
                     'headers' => [
                         'key'   => config('olshop.rajaongkir_key'),

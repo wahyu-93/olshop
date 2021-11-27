@@ -54,10 +54,8 @@
                             <div class="control">
                                 <label for="kota" class="label">Kota</label>
                                 <div class="select is-fullwidth">
-                                    <select name="kota">
-                                        <option value="">Kota 1</option>
-                                        <option value="">Kota 2</option>
-                                        <option value="">Kota 3</option>
+                                    <select name="city" id="city">
+                                        <option value="">Pilih Kota</option>
                                     </select>
                                 </div>
                             </div>
@@ -181,11 +179,36 @@
                     provinces.forEach(province => {
                         // $('#province').append('<option value="'+province.province_id +'">'+province.province+'</option>')
 
-                        let provinsi = new Option(province.province_id, province.province)
+                        let provinsi = new Option(province.province_id, province.province_id)
                         $(provinsi).html(province.province)
                         $('#province').append(provinsi)
                     })
                 }
+            })
+
+            $('#province').change(function(){
+                let province_id = $('#province').val()
+                
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('rajaongkir.city') }}",
+                    data: 'province=' + province_id,
+                    success: function(data){
+                        console.log(data)
+                        $('#city').empty().append('<option>Pilih Kota</option>')
+
+                        data.forEach(city => {
+                            let kota = new Option(city.city_id, city.city_id)
+                            $(kota).html(city.city_name)
+                            $('#city').append(kota)
+                        })
+                    } 
+                })
+            })
+
+            $('#city').change(function(){
+                let cityId = $('#city').val()
+                console.log(cityId)
             })
         })
     </script>

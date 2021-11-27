@@ -19,7 +19,7 @@ Route::get('/cart', 'FrontController\\CartController@index')->middleware('auth')
 Route::get('/checkout', 'FrontController\\CheckoutController@index')->middleware('auth')->name('checkout.index');
 
 Route::get('/rajaongkir/province', 'RajaOngkirController@getProvince')->middleware('auth')->name('rajaongkir.province');
-Route::get('/rajaongkir/city/{provinceId?}/{cityId?}', 'RajaOngkirController@getCity')->middleware('auth')->name('rajaongkir.city');
+Route::get('/rajaongkir/city', 'RajaOngkirController@getCity')->middleware('auth')->name('rajaongkir.city');
 Route::get('/rajaongkir/cost', 'RajaOngkirController@getCost')->middleware('auth')->name('rajaongkir.cost');
 
 
