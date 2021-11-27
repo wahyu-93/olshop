@@ -91,6 +91,7 @@
     
     </div>
 
+    <script src="{{ asset('js/app.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Get all "navbar-burger" elements
@@ -116,5 +117,7 @@
             }
         });
     </script>
+
+    @stack('scripts')
 </body>
 </html>

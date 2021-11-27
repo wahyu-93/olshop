@@ -15,7 +15,7 @@
                             <div class="control">
                                 <label for="name" class="label">{{ __('Name') }}</label>
             
-                                <input id="name" type="text" class="input @error('name') is-danger @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="input @error('name') is-danger @enderror" name="name" value="{{ Auth()->user()->name ?? old('name') }}" required autocomplete="name" autofocus>
         
                                 @error('name')
                                     <span class="help is-danger" role="alert">
@@ -29,7 +29,7 @@
                             <div class="control">
                                 <label for="email" class="label">{{ __('E-Mail') }}</label>
             
-                                <input id="email" type="email" class="input @error('email') is-danger @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="input @error('email') is-danger @enderror" name="email" value="{{ Auth()->user()->email ?? old('email') }}" required autocomplete="email">
             
                                 @error('email')
                                     <span class="help is-danger" role="alert">
@@ -43,10 +43,8 @@
                             <div class="control">
                                 <label for="propinsi" class="label">Propinsi</label>
                                 <div class="select is-fullwidth">
-                                    <select name="propinsi">
-                                        <option value="">Propinsi 1</option>
-                                        <option value="">Propinsi 2</option>
-                                        <option value="">Propinsi 3</option>
+                                    <select name="propinsi" name="province" id="province">
+                                        <option value="">Pilih Provinsi</option>
                                     </select>
                                 </div>
                             </div>
@@ -67,8 +65,8 @@
         
                        <div class="field">
                            <div class="control">
-                               <label for="address" class="label">Address</label>
-                               <textarea name="address" id="address" rows="5" class="textarea @error('address') is-danger @enderror"></textarea>
+                                <label for="address" class="label">Address</label>
+                                <textarea name="address" id="address" rows="5" class="textarea @error('address') is-danger @enderror">{{ Auth()->user()->address ?? old('address') }}</textarea>
                                
                                @error('address')
                                     <span class="help is-danger" role="alert">
@@ -81,7 +79,7 @@
                        <div class="field">
                         <div class="control">
                             <label for="phone" class="label">Phone</label>
-                            <input type="text" name="phone" class="input @error('phone') is-danger @enderror">
+                            <input type="text" name="phone" class="input @error('phone') is-danger @enderror" value="{{ Auth()->user()->phone ?? old('phone') }}">
                             
                             @error('phone')
                                  <span class="help is-danger" role="alert">
@@ -170,3 +168,25 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function(){
+            $.ajax({
+                type: 'GET',
+                url: "{{ route('rajaongkir.province') }}",
+                success: function(data){
+                    let provinces = data
+
+                    provinces.forEach(province => {
+                        // $('#province').append('<option value="'+province.province_id +'">'+province.province+'</option>')
+
+                        let provinsi = new Option(province.province_id, province.province)
+                        $(provinsi).html(province.province)
+                        $('#province').append(provinsi)
+                    })
+                }
+            })
+        })
+    </script>
+@endpush
