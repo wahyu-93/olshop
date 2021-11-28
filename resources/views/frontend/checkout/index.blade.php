@@ -220,7 +220,7 @@
             $('#city').change(function(){
                 let cityId = $('#city').val()
                 $.ajax({
-                    type: 'GET',
+                    type: 'POST',
                     url: "{{ route('rajaongkir.cost') }}",
                     data: 'city=' + cityId,
                     success: function(data){

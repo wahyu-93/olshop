@@ -18,11 +18,6 @@ Route::get('/cart/{product}', 'FrontController\\CartController@addItem')->middle
 Route::get('/cart', 'FrontController\\CartController@index')->middleware('auth')->name('cart.index');
 Route::get('/checkout', 'FrontController\\CheckoutController@index')->middleware('auth')->name('checkout.index');
 
-Route::get('/rajaongkir/province', 'RajaOngkirController@getProvince')->middleware('auth')->name('rajaongkir.province');
-Route::get('/rajaongkir/city', 'RajaOngkirController@getCity')->middleware('auth')->name('rajaongkir.city');
-Route::get('/rajaongkir/cost', 'RajaOngkirController@getCost')->middleware('auth')->name('rajaongkir.cost');
-
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

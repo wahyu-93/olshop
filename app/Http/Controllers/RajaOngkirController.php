@@ -59,7 +59,7 @@ class RajaOngkirController extends Controller
                         'origin'        => config('olshop.shop_origin'),
                         'destination'   => $request->city,
                         'weight'        => 1000,
-                        'courier'       => 'pos'
+                        'courier'       => 'tiki'
                     ]
                 ]
             );
