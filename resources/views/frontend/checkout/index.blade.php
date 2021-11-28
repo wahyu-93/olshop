@@ -61,6 +61,17 @@
                             </div>
                         </div>
         
+                        <div class="field">
+                            <div class="control">
+                                <label for="kota" class="label">Courier</label>
+                                <div class="select is-fullwidth">
+                                    <select name="courier" id="courier">
+                                        <option value="">Pilih Courier</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                        <div class="field">
                            <div class="control">
                                 <label for="address" class="label">Address</label>
@@ -194,7 +205,7 @@
                     url: "{{ route('rajaongkir.city') }}",
                     data: 'province=' + province_id,
                     success: function(data){
-                        console.log(data)
+                        // console.log(data)
                         $('#city').empty().append('<option>Pilih Kota</option>')
 
                         data.forEach(city => {
@@ -208,7 +219,26 @@
 
             $('#city').change(function(){
                 let cityId = $('#city').val()
-                console.log(cityId)
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('rajaongkir.cost') }}",
+                    data: 'city=' + cityId,
+                    success: function(data){
+                        console.log(data)
+                        let couriers = data[0].costs
+                        $('#courier').empty().append('<option>Pilih Courier</option>')
+
+                        couriers.forEach(courier => {
+                            // let kota = new Option(city.city_id, city.city_id)
+                            // $(kota).html(city.city_name)
+                            // $('#city').append(kota)
+                            
+                            $('#courier').append('<option value="'+ courier.service +'">'+ data[0].name +' - '+ courier.description +' ( '+ courier.cost[0].value +' ) - '+ courier.cost[0].etd +' </option>')
+
+
+                        })
+                    } 
+                })
             })
         })
     </script>

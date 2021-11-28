@@ -44,7 +44,7 @@ class RajaOngkirController extends Controller
         return $rajaOngkir['rajaongkir']['results'];
     }
 
-    public function getCost()
+    public function getCost(Request $request)
     {
         $client = new Client;
         $req = $client->request(
@@ -57,7 +57,7 @@ class RajaOngkirController extends Controller
                     ],
                     'form_params' => [
                         'origin'        => config('olshop.shop_origin'),
-                        'destination'   => 452,
+                        'destination'   => $request->city,
                         'weight'        => 1000,
                         'courier'       => 'pos'
                     ]
@@ -65,6 +65,6 @@ class RajaOngkirController extends Controller
             );
 
         $rajaOngkir = json_decode($req->getBody(), true);
-        return $rajaOngkir['rajaongkir'];
+        return $rajaOngkir['rajaongkir']['results'];
     }
 }
