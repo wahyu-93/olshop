@@ -10,6 +10,8 @@ class CheckoutController extends Controller
     public function index()
     {
         $carts = session('cart');
-        return view('frontend.checkout.index', compact('carts'));
+        $couriers = config('olshop.couriers');
+    
+        return view('frontend.checkout.index', compact('carts', 'couriers'));
     }
 }

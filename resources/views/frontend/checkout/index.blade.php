@@ -63,10 +63,24 @@
         
                         <div class="field">
                             <div class="control">
-                                <label for="kota" class="label">Courier</label>
+                                <label for="courier" class="label">Courier</label>
                                 <div class="select is-fullwidth">
                                     <select name="courier" id="courier">
                                         <option value="">Pilih Courier</option>
+                                        @foreach ($couriers as $key => $courier)
+                                            <option value="{{ $key }}">{{ $courier }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <label for="service" class="label">Service</label>
+                                <div class="select is-fullwidth">
+                                    <select name="service" id="service">
+                                        <option value="">Pilih Service</option>
                                     </select>
                                 </div>
                             </div>
@@ -217,25 +231,28 @@
                 })
             })
 
-            $('#city').change(function(){
+            $('#courier').change(function(){
                 let cityId = $('#city').val()
+                let courier = $('#courier').val()
+
                 $.ajax({
                     type: 'POST',
                     url: "{{ route('rajaongkir.cost') }}",
-                    data: 'city=' + cityId,
+                    data: {
+                        'city' : cityId,
+                        'courier' : courier
+                    },
                     success: function(data){
                         console.log(data)
-                        let couriers = data[0].costs
-                        $('#courier').empty().append('<option>Pilih Courier</option>')
+                        let services = data[0].costs
+                        $('#service').empty().append('<option>Pilih Service</option>')
 
-                        couriers.forEach(courier => {
+                        services.forEach(service => {
                             // let kota = new Option(city.city_id, city.city_id)
                             // $(kota).html(city.city_name)
                             // $('#city').append(kota)
                             
-                            $('#courier').append('<option value="'+ courier.service +'">'+ data[0].name +' - '+ courier.description +' ( '+ courier.cost[0].value +' ) - '+ courier.cost[0].etd +' </option>')
-
-
+                            $('#service').append('<option value="'+ service.service +'">'+ service.description +' (Rp. '+ service.cost[0].value.toLocaleString() +' ) </option>')
                         })
                     } 
                 })
