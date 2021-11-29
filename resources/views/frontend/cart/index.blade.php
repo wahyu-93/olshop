@@ -55,19 +55,21 @@
                 @endif
             </div>
 
-            <div class="column is-4">
-                <h2 class="is-size-2">Cart Detail</h2>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="content">
-                            <p class="is-size-5">Jumlah Item : {{ $totalItems }} Items</p>
-                            <p class="is-size-5">Total Price : {{ formatRupiah($totalPrice) }}</p>
-                            <hr>
-                            <a href="{{ route('checkout.index') }}" class="button is-danger is-small is-rounded is-fullwidth">Checkout</a>
+            @if($carts)
+                <div class="column is-4">
+                    <h2 class="is-size-2">Cart Detail</h2>
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="is-size-5">Jumlah Item : {{ $totalItems }} Items</p>
+                                <p class="is-size-5">Total Price : {{ formatRupiah($totalPrice)}}</p>
+                                <hr>
+                                <a href="{{ route('checkout.index') }}" class="button is-danger is-small is-rounded is-fullwidth">Go to Process</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            @endif
         </div>
     </div>
 @endsection

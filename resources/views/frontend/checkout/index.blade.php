@@ -121,72 +121,83 @@
                         </div>
                     </form>
                 </div>
-                <hr>
-                <div class="column is-12">
-                    @if ($carts)
-                        {{-- <a href="/" class="button is-danger is-small is-rounded mb-3">Product List</a> --}}
-                        <h2 class="is-size-2">Shopping Carts</h2>
-    
-                        @php
-                            $totalItems = 0;
-                            $totalPrice = 0;
-                        @endphp
-    
-                        @foreach ($carts as $cart)
-                            <div class="card">
-                                <div class="card-header">
-                                    <p class="card-header-title">
-                                        {{ $cart['name'] }}
-                                    </p>
-                                </div>
-                                
-                                <div class="card-content">
-                                    <div class="content">
-                                        <div class="columns">
-                                            <div class="column is-3">
-                                                <img src="{{ $cart['image'] }}" alt="Foto Tidak Ada" class="image is-128x128">
-                                            </div>
-        
-                                            <div class="column is-9">
-                                                <p class="is-size-5">{{ $cart['description'] }}</p>
-                                                <p class="is-size-4 has-text-danger">{{ formatRupiah($cart['price']) }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            @php
-                                $totalItems += $cart['qty'];
-                                $totalPrice += $cart['price'];
-                            @endphp
-    
-    
-                        @endforeach
-                    @else 
-                        <div class="card">
-                            <div class="card-content">
-                                <div class="content">
-                                    <h3 class="is-size-4">Oppps Empty Cart</h3>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
             </div>
 
             <div class="column is-4">
                 <h2 class="is-size-2">Cart Detail</h2>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="content">
-                            <p class="is-size-5">Jumlah Item : {{ $totalItems }} Items</p>
-                            <p class="is-size-5">Total Price : {{ formatRupiah($totalPrice) }}</p>
-                            <hr>
-                            <a href="{{ route('checkout.index') }}" class="button is-danger is-small is-rounded is-fullwidth">Go to Payment</a>
+
+                @if ($carts)
+                    @php
+                        $totalItems = 0;
+                        $totalPrice = 0;
+                    @endphp
+
+                    @foreach ($carts as $cart)
+                        <div class="card">                            
+                            <div class="card-content">
+                                <div class="content">
+                                    <div class="columns">
+                                        <div class="column is-3">
+                                            <img src="{{ $cart['image'] }}" alt="Foto Tidak Ada" class="image is-64X64">
+                                        </div>
+    
+                                        <div class="column is-9">
+                                            <p class="is-size-5" >{{ $cart['name'] }}</p>
+                                            {{-- <p class="is-size-5">{{ $cart['description'] }}</p> --}}
+                                            <p class="is-size-5 has-text-danger">{{ formatRupiah($cart['price']) }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @php
+                            $totalItems += $cart['qty'];
+                            $totalPrice += $cart['price'];
+                        @endphp
+
+
+                    @endforeach
+                    
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="content">
+                                <p class="is-size-5" id="jmlItem">Jumlah Item : 
+                                    <span class="is-pulled-right">{{ $totalItems }} Items</span>
+                                </p>
+
+                                <p class="is-size-5" id="etd">ETD : 
+                                    <span class="is-pulled-right"> - hari</span>
+                                </p>
+
+                                <p class="is-size-5" id="shipping_cast">Shipping Cost : 
+                                    <span class="is-pulled-right">Rp. 0</span>
+                                </p>
+
+                                <p class="is-size-5" id="ttlPrice">Total Price : 
+                                    <span class="is-pulled-right">{{ formatRupiah($totalPrice) }}</span>
+                                </p>
+                                
+                                <hr>
+
+                                <p class="is-size-5" id="grand_total">Grand Total
+                                    <span class="is-pulled-right">{{ formatRupiah($totalPrice) }}</span>
+                                </p>
+
+                            </div>
                         </div>
                     </div>
-                </div>
+                @else 
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="content">
+                                <h3 class="is-size-4">Oppps Empty Cart</h3>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                
+
             </div>
         </div>
     </div>
