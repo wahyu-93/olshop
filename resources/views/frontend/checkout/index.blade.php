@@ -162,26 +162,26 @@
                     <div class="card">
                         <div class="card-content">
                             <div class="content">
-                                <p class="is-size-5" id="jmlItem">Jumlah Item : 
-                                    <span class="is-pulled-right">{{ $totalItems }} Items</span>
+                                <p class="is-size-5">Jumlah Item : 
+                                    <span class="is-pulled-right" id="jmlItem">{{ $totalItems }} Items</span>
                                 </p>
 
-                                <p class="is-size-5" id="etd">ETD : 
-                                    <span class="is-pulled-right"> - hari</span>
+                                <p class="is-size-5">ETD : 
+                                    <span class="is-pulled-right" id="etd"> - hari</span>
                                 </p>
 
-                                <p class="is-size-5" id="shipping_cast">Shipping Cost : 
-                                    <span class="is-pulled-right">Rp. 0</span>
+                                <p class="is-size-5">Shipping Cost : 
+                                    <span class="is-pulled-right" id="shipping_cost">Rp. 0</span>
                                 </p>
 
-                                <p class="is-size-5" id="ttlPrice">Total Price : 
-                                    <span class="is-pulled-right">{{ formatRupiah($totalPrice) }}</span>
+                                <p class="is-size-5">Total Price : 
+                                    <span class="is-pulled-right" id="ttlPrice">{{ formatRupiah($totalPrice) }}</span>
                                 </p>
                                 
-                                <hr>
+                                <input type="hidden" id="priceOri" value="{{ $totalPrice }}">
 
-                                <p class="is-size-5" id="grand_total">Grand Total
-                                    <span class="is-pulled-right">{{ formatRupiah($totalPrice) }}</span>
+                                <p class="is-size-5">Grand Total
+                                    <span class="is-pulled-right" id="grand_total">{{ formatRupiah($totalPrice) }}</span>
                                 </p>
 
                             </div>
@@ -263,8 +263,39 @@
                             // $(kota).html(city.city_name)
                             // $('#city').append(kota)
                             
-                            $('#service').append('<option value="'+ service.service +'">'+ service.description +' (Rp. '+ service.cost[0].value.toLocaleString() +' ) </option>')
+                            $('#service').append('<option value="'+ service.service +'">'+ service.description +' ('+ service.service +') - (Rp. '+ service.cost[0].value.toLocaleString() +' ) </option>')
                         })
+                    } 
+                })
+            })
+
+            $('#service').change(function(){
+                let cityId = $('#city').val()
+                let courier = $('#courier').val()
+                let service = $('#service').val()
+                let price   = $('#priceOri').val()
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('rajaongkir.cost') }}",
+                    data: {
+                        'city' : cityId,
+                        'courier' : courier
+                    },
+                    success: function(data){
+                        let couriers = data[0].costs
+                        let shipingCost = couriers.find(cost => {
+                            return cost.service == service
+                        })
+
+                        let etd = shipingCost.cost[0].etd +  " hari"
+                        let cost = shipingCost.cost[0].value
+                        let grandTotal = cost + parseInt(price)
+                        console.log(price)
+
+                        $('#etd').text(etd)
+                        $('#shipping_cost').text('Rp. ' + cost.toLocaleString('id-ID'))
+                        $('#grand_total').text('Rp. '+ grandTotal.toLocaleString('id-ID'))
                     } 
                 })
             })
