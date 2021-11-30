@@ -8,7 +8,7 @@
                     <h2 class="is-size-2">Checkout</h2>
                     <p class="is-size-5">Shipping Addres</p>
                     <hr>
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('checkout.store') }}">
                         @csrf
         
                         <div class="field">
@@ -100,17 +100,19 @@
                        </div>
 
                        <div class="field">
-                        <div class="control">
-                            <label for="phone" class="label">Phone</label>
-                            <input type="text" name="phone" class="input @error('phone') is-danger @enderror" value="{{ Auth()->user()->phone ?? old('phone') }}">
-                            
-                            @error('phone')
-                                 <span class="help is-danger" role="alert">
-                                     <strong>{{ $message }}</strong>
-                                 </span>
-                             @enderror
+                            <div class="control">
+                                <label for="phone" class="label">Phone</label>
+                                <input type="text" name="phone" class="input @error('phone') is-danger @enderror" value="{{ Auth()->user()->phone ?? old('phone') }}">
+                                
+                                @error('phone')
+                                    <span class="help is-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-                    </div>
+
+                        <input type="hidden" name="cost" id="cost">
         
                         <div class="field">
                             <div class="control">
@@ -291,11 +293,11 @@
                         let etd = shipingCost.cost[0].etd +  " hari"
                         let cost = shipingCost.cost[0].value
                         let grandTotal = cost + parseInt(price)
-                        console.log(price)
-
+                        
                         $('#etd').text(etd)
                         $('#shipping_cost').text('Rp. ' + cost.toLocaleString('id-ID'))
                         $('#grand_total').text('Rp. '+ grandTotal.toLocaleString('id-ID'))
+                        $('#cost').val(cost)
                     } 
                 })
             })
