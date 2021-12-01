@@ -49,5 +49,8 @@ class CheckoutController extends Controller
         }
         
         OrderDetail::insert($detailOrders);
+        session()->forget('cart');
+        
+        return view('frontend.checkout.detail', compact('order'));
     }
 }

@@ -8,5 +8,10 @@
             'jne'   => 'JNE',
             'tiki'  => 'TIKI',
             'pos'   => 'POS Indonesia',
-        ]
+        ],
+        'bank'  => [
+            'bank_name' => 'Mandiri',
+            'account_name'  => 'Wahyu',
+            'account_number'    => '082353089050'
+        ],
     ];
