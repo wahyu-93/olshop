@@ -19,12 +19,25 @@
                     </thead>
 
                     <tbody>
-                        @foreach ($orders as $order)     
+                         @foreach ($orders as $order)     
+                            @php
+                                $color = '';
+                                if($order->status == 'unpaid'){
+                                    $color = 'is-danger';
+                                }
+                                else if($order->status == 'paid'){
+                                    $color = 'is-success';
+                                }
+                                else {
+                                    $color = 'is-info';
+                                }
+                            @endphp
+
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $order->created_at }}</td>
                                 <td>
-                                    <span class="tag is-danger is-medium">{{ $order->status }}</span>
+                                    <span class="tag is-medium {{ $color }}">{{ ucwords($order->status) }}</span>
                                 </td>
                                 <td>{{ formatRupiah($order->total) }}</td>
                                 @if ($order->status == 'unpaid')
