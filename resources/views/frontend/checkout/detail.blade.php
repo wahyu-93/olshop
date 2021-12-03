@@ -20,7 +20,7 @@
                     <tbody>
                         @foreach ($order->orderDetails as $item)     
                             <tr>
-                                <td>#</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->product->name }}</td>
                                 <td>{{ $item->qty }}</td>
                                 <td>{{ formatRupiah($item->price) }}</td>

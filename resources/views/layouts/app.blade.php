@@ -65,6 +65,7 @@
                             </a>
 
                             <div class="navbar-dropdown">
+                                <a href="{{ route('order.history.index') }}" class="navbar-item">History</a>
                                 <a href="" class="navbar-item">Profile</a>
                                 <a 
                                     href="{{ route('logout') }}" 

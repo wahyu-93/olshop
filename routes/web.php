@@ -18,6 +18,8 @@ Route::get('/cart/{product}', 'FrontController\\CartController@addItem')->middle
 Route::get('/cart', 'FrontController\\CartController@index')->middleware('auth')->name('cart.index');
 Route::get('/checkout', 'FrontController\\CheckoutController@index')->middleware('auth')->name('checkout.index');
 Route::post('/checkout', 'FrontController\\CheckoutController@store')->middleware('auth')->name('checkout.store');
+Route::get('/order/history', 'FrontController\\OrderController@index')->middleware('auth')->name('order.history.index');
+Route::get('/order/{order}', 'FrontController\\OrderController@show')->middleware('auth')->name('order.show');
 
 Auth::routes();
 
