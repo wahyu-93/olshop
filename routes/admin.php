@@ -8,3 +8,4 @@ Route::resource('/category', 'CategoryController');
 Route::resource('/product', 'ProductController');
 
 Route::get('/order','OrderController@index')->name('admin.order');
+Route::get('/order/{order}','OrderController@detail')->name('admin.order.detail');

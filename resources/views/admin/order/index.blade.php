@@ -47,7 +47,7 @@
                                 </span>
                             </td>
                             <td>
-                                <a href="" class="btn btn-primary btn-sm">Detail</a>
+                                <a href="{{ route('admin.order.detail', $order) }}" class="btn btn-primary btn-sm">Detail</a>
                                 
                                 @if ($order->status != 'unpaid')
                                     <a href="" class="btn btn-success btn-sm">Up Process</a>
