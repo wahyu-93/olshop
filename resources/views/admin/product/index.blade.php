@@ -5,7 +5,7 @@
             @include('admin.templates._alert')
             <div class="card card-primary card-outline mt-3">
                 <div class="card-header">
-                    <h3 class="card-title">List Product</h3>
+                    <h3 class="card-title" style="font-size: 32px">List Product</h3>
                     <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm float-right" title="Tambah Data">
                         <i class="fa fa-plus"></i>
                     </a>

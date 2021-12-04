@@ -5,7 +5,7 @@
             @include('admin.templates._alert')
             <div class="card card-primary card-outline mt-3">
                 <div class="card-header">
-                    <h3 class="card-title">List Orders</h3>
+                    <h3 class="card-title" style="font-size: 32px">List Orders</h3>
                 </div>
 
                 <div class="card-body">
