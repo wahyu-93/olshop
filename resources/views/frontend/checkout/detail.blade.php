@@ -65,8 +65,9 @@
                         <td><b>{{ formatRupiah($order->shiping_cost + $order->total) }}</b></td>
                     </tr>
                 </table>
+                <a href="/" class="button is-info is-medium">Back to Product</a>
+                <a href="" class="button is-success is-medium">Konfirmasi Transfer</a>
             </div>
         </div>
-
     </div>
 @endsection

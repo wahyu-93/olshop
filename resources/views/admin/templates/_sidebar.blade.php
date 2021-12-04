@@ -97,6 +97,13 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ route('admin.order')}}" class="nav-link">
+              <i class="fa fa-angle-double-right"></i>
+              <p>Orders</p>
+            </a>
+          </li>
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

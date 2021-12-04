@@ -10,7 +10,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::paginate(10);
+        $orders = Order::ByAuth()->latest()->paginate(10);
         return view('frontend.history.index', compact('orders'));
     }
 

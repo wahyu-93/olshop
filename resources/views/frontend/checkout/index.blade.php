@@ -15,7 +15,7 @@
                             <div class="control">
                                 <label for="name" class="label">{{ __('Name') }}</label>
             
-                                <input id="name" type="text" class="input @error('name') is-danger @enderror" name="name" value="{{ Auth()->user()->name ?? old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="input @error('name') is-danger @enderror" name="name" value="{{ Auth()->user()->name ?? old('name') }}" readonly autocomplete="name" autofocus>
         
                                 @error('name')
                                     <span class="help is-danger" role="alert">
@@ -29,7 +29,7 @@
                             <div class="control">
                                 <label for="email" class="label">{{ __('E-Mail') }}</label>
             
-                                <input id="email" type="email" class="input @error('email') is-danger @enderror" name="email" value="{{ Auth()->user()->email ?? old('email') }}" required autocomplete="email">
+                                <input id="email" type="email" class="input @error('email') is-danger @enderror" name="email" value="{{ Auth()->user()->email ?? old('email') }}" readonly autocomplete="email">
             
                                 @error('email')
                                     <span class="help is-danger" role="alert">

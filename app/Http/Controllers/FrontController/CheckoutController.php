@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\User;
 use Carbon\Carbon;
 
 class CheckoutController extends Controller
@@ -21,6 +22,13 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $carts = collect(session('cart'));
+        $this->validate($request,[
+            'address'   => 'required',
+            'phone'     => 'required'
+        ],[
+            'address.required'  => 'Address Diisi',
+            'phone.required'    => 'Phone Diisi'
+        ]);
         
         // simpan order
         $order = Order::create([
@@ -47,6 +55,13 @@ class CheckoutController extends Controller
                 'updated_at'    => Carbon::now()
             ];
         }
+
+        // update identitas
+        $user = User::find(Auth()->user()->id);
+        $user->update([
+            'address'   => $request->address,
+            'phone'     => $request->phone
+        ]);
         
         OrderDetail::insert($detailOrders);
         session()->forget('cart');
