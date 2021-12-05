@@ -47,7 +47,9 @@
                                 @endif
                                 <td>
                                     <a href="{{ route('order.show', $order) }}" class="button is-info">Detail</a>
-                                    <a href="{{ route('order.konfirmasi', $order    ) }}" class="button is-success">Konfirmasi</a>
+                                    @if ($order->status != 'paid')
+                                        <a href="{{ route('order.konfirmasi', $order    ) }}" class="button is-success">Konfirmasi</a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

@@ -96,6 +96,12 @@
                     
                         </tbody>
                     </table>
+
+                    @if ($order->status=='paid')
+                        <p class="mt-3">Bukti Transfer</p>                        
+                        <img src="{{ asset($order->getImage()) }}" width="250px" height="250px" class="img-thumbnail">
+                    @endif
+
                 </div>
             </div>           
         </div>

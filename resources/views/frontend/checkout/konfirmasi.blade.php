@@ -3,8 +3,8 @@
 @section('content')
     <div class="container">
         <h1 class="is-size-1 has-text-weight-bold has-text-centered" text-align="center">Konfirmasi Order</h1>
-        <p class="has-text-centered is-size-5">Order Name : <b>{{ $order->user->name }}</b> with Transaction Id : <b>{{ $order->id }}</b>, Date Order : <b>{{ $order->created_at }}</b> </p>
-        {{-- <hr> --}}
+        <p class="has-text-centered is-size-5">Order Name : <b>{{ $order->user->name }}</b> with Transaction Id : <b>{{ $order->id }}</b>, Date Order : <b>{{ $order->created_at }}</b>, Amount : <b>{{ formatRupiah($order->total+$order->shiping_cost) }}</b></p>
+ 
         <div class="columns is-centered mt-3">
             <div class="column is-10 mt-3 is-centered">
                 <form method="post" action="{{ route('order.konfirmasi.post', $order) }}" enctype="multipart/form-data">

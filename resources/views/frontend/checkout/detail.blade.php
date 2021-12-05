@@ -11,7 +11,9 @@
                 @include('frontend.components._detailOrder', $order)
                 
                 <a href="/" class="button is-info is-medium">Back to Product</a>
-                <a href="{{ route('order.konfirmasi', $order) }}" class="button is-success is-medium">Konfirmasi Transfer</a>
+                @if ($order->status != 'paid')
+                    <a href="{{ route('order.konfirmasi', $order) }}" class="button is-success is-medium">Konfirmasi Transaction</a>
+                @endif
             </div>
         </div>
     </div>
