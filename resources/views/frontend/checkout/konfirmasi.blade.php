@@ -7,10 +7,10 @@
         {{-- <hr> --}}
         <div class="columns is-centered mt-3">
             <div class="column is-10 mt-3 is-centered">
-                <form method="post" action="{{ route('order.konfirmasi.post', $order) }}" enctype="multipart/form-data  ">
+                <form method="post" action="{{ route('order.konfirmasi.post', $order) }}" enctype="multipart/form-data">
                     @csrf
                     
-                    <div id="file-js-example" class="file has-name mb-2">
+                    <div id="file-js-example" class="file has-name mb-2 @error('foto') is-danger @enderror">
                         <label class="file-label">
                             <input class="file-input" type="file" name="foto">
                             <span class="file-cta">
@@ -27,10 +27,21 @@
                         </label>
                     </div>
 
+                    @error('foto')
+                        <span class="help is-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror                  
+                    
+                    @if ($order->foto_tf)
+                        <img src="{{ asset($order->getImage()) }}" alt="">
+                    @endif
+
+
                     <div class="field">
                         <div class="control">
                             <label for="catatan" class="label">Catatan</label>
-                            <textarea name="catatan" id="catatan" rows="5" class="textarea" placeholder="Catatan..."></textarea>
+                            <textarea name="catatan" id="catatan" rows="5" class="textarea" placeholder="Catatan...">{{ $order->catatan ?? old('catatan') }}</textarea>
                         </div>
                     </div>
                       

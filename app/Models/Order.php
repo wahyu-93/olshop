@@ -23,4 +23,9 @@ class Order extends Model
     {
         return $query->where('user_id', Auth()->id());
     }
+
+    public function getImage()
+    {
+        return asset('images/'.$this->foto_tf);
+    }
 }
