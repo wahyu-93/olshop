@@ -78,11 +78,16 @@
                         <div class="field">
                             <div class="control">
                                 <label for="service" class="label">Service</label>
-                                <div class="select is-fullwidth">
+                                <div class="select is-fullwidth  @error('service') is-danger @enderror">
                                     <select name="service" id="service">
                                         <option value="">Pilih Service</option>
                                     </select>
                                 </div>
+                                @error('service')
+                                    <span class="help is-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -232,7 +237,6 @@
                     url: "{{ route('rajaongkir.city') }}",
                     data: 'province=' + province_id,
                     success: function(data){
-                        // console.log(data)
                         $('#city').empty().append('<option>Pilih Kota</option>')
 
                         data.forEach(city => {
@@ -256,7 +260,6 @@
                         'courier' : courier
                     },
                     success: function(data){
-                        console.log(data)
                         let services = data[0].costs
                         $('#service').empty().append('<option>Pilih Service</option>')
 

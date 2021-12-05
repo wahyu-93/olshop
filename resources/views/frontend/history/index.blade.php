@@ -47,7 +47,7 @@
                                 @endif
                                 <td>
                                     <a href="{{ route('order.show', $order) }}" class="button is-info">Detail</a>
-                                    <a href="" class="button is-success">Konfirmasi</a>
+                                    <a href="{{ route('order.konfirmasi', $order    ) }}" class="button is-success">Konfirmasi</a>
                                 </td>
                             </tr>
                         @endforeach

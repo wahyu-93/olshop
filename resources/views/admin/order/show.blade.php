@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table table-bordered col-md-6">
+                    <table class="table table-bordered col-md-6 mb-2">
                         <tbody>
                             <tr>
                                 <td>Transactio Id</td>
@@ -53,6 +53,12 @@
                                 <td>Amount</td>
                                 <td>:</td>
                                 <td><b>{{ formatRupiah($order->shiping_cost + $order->total) }}</b></td>
+                            </tr>
+
+                            <tr>
+                                <td>Status</td>
+                                <td>:</td>
+                                <td colspan="4"><strong>{{ ucwords($order->status) }}</strong></td>
                             </tr>
                         </tbody>
                     </table>

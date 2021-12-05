@@ -10,8 +10,8 @@
             <div class="column is-10 mt-3 is-centered">
                 @include('frontend.components._detailOrder', $order)
                 
-                <a href="" class="button is-success is-medium">Konfirmasi Transfer</a>
                 <a href="/" class="button is-info is-medium">Back to Product</a>
+                <a href="{{ route('order.konfirmasi', $order) }}" class="button is-success is-medium">Konfirmasi Transfer</a>
             </div>
         </div>
     </div>

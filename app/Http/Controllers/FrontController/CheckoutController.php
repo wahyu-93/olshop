@@ -24,10 +24,12 @@ class CheckoutController extends Controller
         $carts = collect(session('cart'));
         $this->validate($request,[
             'address'   => 'required',
-            'phone'     => 'required'
+            'phone'     => 'required',
+            'service'   => 'required'
         ],[
             'address.required'  => 'Address Diisi',
-            'phone.required'    => 'Phone Diisi'
+            'phone.required'    => 'Phone Diisi',
+            'service.required'  => 'Service Tidak Boleh Kosong'
         ]);
         
         // simpan order

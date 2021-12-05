@@ -14,12 +14,17 @@
 Route::get('/', 'FrontController\\HomeController@homepage')->name('homepage');
 Route::get('/product/{product}', 'FrontController\\ProductController@show')->name('front.product.show');
 Route::get('/product/category/{category}', 'FrontController\\ProductController@byCategory')->name('front.product.by.category');
-Route::get('/cart/{product}', 'FrontController\\CartController@addItem')->middleware('auth')->name('cart.add.item');
-Route::get('/cart', 'FrontController\\CartController@index')->middleware('auth')->name('cart.index');
-Route::get('/checkout', 'FrontController\\CheckoutController@index')->middleware('auth')->name('checkout.index');
-Route::post('/checkout', 'FrontController\\CheckoutController@store')->middleware('auth')->name('checkout.store');
-Route::get('/order/history', 'FrontController\\OrderController@index')->middleware('auth')->name('order.history.index');
-Route::get('/order/{order}', 'FrontController\\OrderController@show')->middleware('auth')->name('order.show');
+
+Route::middleware('auth')->group(function(){
+    Route::get('/cart/{product}', 'FrontController\\CartController@addItem')->name('cart.add.item');
+    Route::get('/cart', 'FrontController\\CartController@index')->name('cart.index');
+    Route::get('/checkout', 'FrontController\\CheckoutController@index')->name('checkout.index');
+    Route::post('/checkout', 'FrontController\\CheckoutController@store')->name('checkout.store');
+    Route::get('/order/history', 'FrontController\\OrderController@index')->name('order.history.index');
+    Route::get('/order/{order}', 'FrontController\\OrderController@show')->name('order.show');
+    Route::get('/order/konfirmasi/{order}', 'FrontController\\OrderController@konfirmasi')->name('order.konfirmasi');
+    Route::post('/order/konfirmasi/{order}', 'FrontController\\OrderController@konfirmasiPost')->name('order.konfirmasi.post');
+});
 
 Auth::routes();
 

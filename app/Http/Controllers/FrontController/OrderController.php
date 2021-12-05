@@ -18,4 +18,14 @@ class OrderController extends Controller
     {
         return view('frontend.checkout.detail', compact('order'));
     }
+
+    public function konfirmasi(Order $order)
+    {
+        return view('frontend.checkout.konfirmasi', compact('order'));
+    }
+
+    public function konfirmasiPost(Request $request)
+    {
+        dd($request);
+    }
 }
